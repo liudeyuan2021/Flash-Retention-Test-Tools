@@ -1,4 +1,5 @@
 import os
+import argparse
 from tool import fileTool as FT
 from tool.mpTool import TaskManager
 from tqdm import tqdm
@@ -47,7 +48,7 @@ def load_data_mp(src, dst, device):
 
 
 pe_cycle = 50
-retention = 4
+retention = 5
 
 
 def intel_670p():
@@ -59,6 +60,7 @@ def intel_670p():
     dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
     load_data(src, dst, device)
 
+
 def kingston_nv1():
     type = 'SSD_Kingston_NV1'
     capacity = 768
@@ -68,41 +70,67 @@ def kingston_nv1():
     dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
     load_data(src, dst, device)
 
-def seagate_q5():
-    src = 'data/96G'
-    device = '/dev/sdd'
 
-    type = 'TF_SanDisk_RedGrey'
-    capacity = 96
+def seagate_q5():
+    type = 'SSD_Seagate_Q5'
+    capacity = 384
+    device = '/dev/nvme2n1'
+
+    src = f'data/{capacity}G'
     dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
     load_data(src, dst, device)
+
 
 def samsung_870qvo():
-    src = 'data/96G'
-    device = '/dev/sdd'
+    type = 'SSD_SAMSUNG_870QVO'
+    capacity = 768
+    device = '/dev/sdb'
 
-    type = 'TF_SanDisk_RedGrey'
-    capacity = 96
+    src = f'data/{capacity}G'
     dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
     load_data(src, dst, device)
 
-def sandisk_redgreys():
-    src = 'data/96G'
-    device = '/dev/sdd'
 
+def sandisk_redgrey():
     type = 'TF_SanDisk_RedGrey'
     capacity = 96
+    device = '/dev/sdd'
+
+    src = f'data/{capacity}G'
     dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
     load_data(src, dst, device)
+
 
 def netac_u185():
-    src = 'data/96G'
-    device = '/dev/sdd'
-
-    type = 'TF_SanDisk_RedGrey'
+    type = 'USB_Netac_U185'
     capacity = 96
+    device = '/dev/sdc'
+
+    src = f'data/{capacity}G'
     dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
     load_data(src, dst, device)
 
+
 if __name__ == '__main__':
-    pass
+    parser = argparse.ArgumentParser()
+    parser.add_argument('choice', type=int)
+    args = parser.parse_args()
+
+    if args.choice == 0:
+        print('choose intel')
+        intel_670p()
+    elif args.choice == 1:
+        print('choose kingston')
+        kingston_nv1()
+    elif args.choice == 2:
+        print('choose seagate')
+        seagate_q5()
+    elif args.choice == 3:
+        print('choose samsung')
+        samsung_870qvo()
+    elif args.choice == 4:
+        print('choose sandisk')
+        sandisk_redgrey()
+    elif args.choice == 5:
+        print('choose netac')
+        netac_u185()

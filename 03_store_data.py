@@ -1,4 +1,5 @@
 import os
+import argparse
 from tool import fileTool as FT
 from tool.mpTool import TaskManager
 from tqdm import tqdm
@@ -35,17 +36,56 @@ def store_data_mp(src, device):
     tm.close()
 
 
-if __name__ == '__main__':
-    '''
-    nvme1n1 q5 384gb
-nvme2n1 670p 384gb
-nvme3n1 nv1 768gb
-sdb 870 768gb
-sdc 96gb
-sdd 96gb
-sde 96gb
-    '''
+def intel_670p():
+    src = 'data/384G'
+    device = '/dev/nvme1n1'
+    store_data(src, device)
 
+def kingston_nv1():
     src = 'data/768G'
+    device = '/dev/nvme2n1'
+    store_data(src, device)
+
+def seagate_q5():
+    src = 'data/384G'
     device = '/dev/nvme3n1'
     store_data(src, device)
+
+def samsung_870qvo():
+    src = 'data/768G'
+    device = '/dev/sdb'
+    store_data(src, device)
+
+def sandisk_redgrey():
+    src = 'data/96G'
+    device = '/dev/sdc'
+    store_data(src, device)
+
+def netac_u185():
+    src = 'data/96G'
+    device = '/dev/sdd'
+    store_data(src, device)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('choice', type=int)
+    args = parser.parse_args()
+
+    if args.choice == 0:
+        print('choose intel')
+        intel_670p()
+    elif args.choice == 1:
+        print('choose kingston')
+        kingston_nv1()
+    elif args.choice == 2:
+        print('choose seagate')
+        seagate_q5()
+    elif args.choice == 3:
+        print('choose samsung')
+        samsung_870qvo()
+    elif args.choice == 4:
+        print('choose sandisk')
+        sandisk_redgrey()
+    elif args.choice == 5:
+        print('choose netac')
+        netac_u185()

@@ -1,4 +1,5 @@
 import os
+import argparse
 from tool import fileTool as FT
 from tool.mpTool import TaskManager
 from tqdm import tqdm
@@ -123,17 +124,101 @@ def write_data(src, dst):
         f.write(bytes([255]))
 
 
-if __name__ == '__main__':
-    src = 'data/384G'
+pe_cycle = 50
+retention = 5
 
-    type = 'SSD_Seagate_Q5'
-    pe_cycle = 1
-    retention = 24
+
+def intel_670p():
+    type = 'SSD_Intel_670P'
     capacity = 384
-    dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
+    device = '/dev/nvme1n1'
 
-    # compare_data(src, dst, cpp=True)
-    # compute_uber(src, dst)
+    src = 'data/384G'
+    dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
+    compare_data(src, dst, cpp=True)
+    compute_uber(src, dst)
     clear_data(src, dst)
-    # check_data(src)
-    # write_data(src='data/test1', dst='data/test2')
+
+
+def kingston_nv1():
+    type = 'SSD_Kingston_NV1'
+    capacity = 768
+    device = '/dev/nvme3n1'
+
+    src = f'data/{capacity}G'
+    dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
+    compare_data(src, dst, cpp=True)
+    compute_uber(src, dst)
+    clear_data(src, dst)
+
+
+def seagate_q5():
+    type = 'SSD_Seagate_Q5'
+    capacity = 384
+    device = '/dev/nvme2n1'
+
+    src = f'data/{capacity}G'
+    dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
+    compare_data(src, dst, cpp=True)
+    compute_uber(src, dst)
+    clear_data(src, dst)
+
+
+def samsung_870qvo():
+    type = 'SSD_SAMSUNG_870QVO'
+    capacity = 768
+    device = '/dev/sdb'
+
+    src = f'data/{capacity}G'
+    dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
+    compare_data(src, dst, cpp=True)
+    compute_uber(src, dst)
+    clear_data(src, dst)
+
+
+def sandisk_redgrey():
+    type = 'TF_SanDisk_RedGrey'
+    capacity = 96
+    device = '/dev/sdd'
+
+    src = f'data/{capacity}G'
+    dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
+    compare_data(src, dst, cpp=True)
+    compute_uber(src, dst)
+    clear_data(src, dst)
+
+
+def netac_u185():
+    type = 'USB_Netac_U185'
+    capacity = 96
+    device = '/dev/sdc'
+
+    src = f'data/{capacity}G'
+    dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
+    compare_data(src, dst, cpp=True)
+    compute_uber(src, dst)
+    clear_data(src, dst)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('choice', type=int)
+    args = parser.parse_args()
+
+    if args.choice == 0:
+        print('choose intel')
+        intel_670p()
+    elif args.choice == 1:
+        print('choose kingston')
+        kingston_nv1()
+    elif args.choice == 2:
+        print('choose seagate')
+        seagate_q5()
+    elif args.choice == 3:
+        print('choose samsung')
+        samsung_870qvo()
+    elif args.choice == 4:
+        print('choose sandisk')
+        sandisk_redgrey()
+    elif args.choice == 5:
+        print('choose netac')
+        netac_u185()
