@@ -1,0 +1,12 @@
+; example -- fio 01_generate_data
+[writers]
+directory=/home/liudeyuan/Desktop/retention/data/384G
+rw=write
+direct=1
+bs=4kb
+size=48gb
+nrfiles=4
+ioengine=libaio
+iodepth=16
+thread
+numjobs=8
