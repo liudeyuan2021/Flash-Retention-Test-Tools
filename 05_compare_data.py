@@ -86,10 +86,7 @@ def clear_data(src, dst):
     files = FT.getAllFiles(src)
     for i, file in enumerate(files):
         dst_file = Path(dst) / Path(file).name
-        if i == 0:
-            cmd = f'sudo -S rm {dst_file}'
-        else:
-            cmd = f'sudo -S rm {dst_file} < password'
+        cmd = f'sudo -S rm {dst_file} < password'
         run_command(cmd)
 
 def check_data(src):
@@ -125,15 +122,15 @@ def write_data(src, dst):
 
 
 pe_cycle = 50
-retention = 5
+retention = 30
 
 
 def intel_670p():
     type = 'SSD_Intel_670P'
-    capacity = 384
+    capacity = 768
     device = '/dev/nvme1n1'
 
-    src = 'data/384G'
+    src = f'data/{capacity}G'
     dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
     compare_data(src, dst, cpp=True)
     compute_uber(src, dst)

@@ -48,15 +48,15 @@ def load_data_mp(src, dst, device):
 
 
 pe_cycle = 50
-retention = 5
+retention = 30
 
 
 def intel_670p():
     type = 'SSD_Intel_670P'
-    capacity = 384
+    capacity = 768
     device = '/dev/nvme1n1'
 
-    src = 'data/384G'
+    src = f'data/{capacity}G'
     dst = f'data/{type}/{pe_cycle:03d}pe_{retention:02d}day_{capacity:03d}g'
     load_data(src, dst, device)
 
