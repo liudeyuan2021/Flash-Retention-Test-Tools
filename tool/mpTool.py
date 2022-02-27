@@ -37,5 +37,6 @@ class TaskManager(object):
         self.pool.close()
         self.pool.join()
 
+
 if __name__ == '__main__':
     print(mp.cpu_count())
