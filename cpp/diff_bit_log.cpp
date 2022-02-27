@@ -1,6 +1,5 @@
-#include <bits/stdc++.h>
-
-using namespace std;
+#include <cstdio>
+#include <string>
 
 int main(int argc, const char *argv[])
 {
@@ -12,7 +11,6 @@ int main(int argc, const char *argv[])
     }
 
     FILE *f1 = fopen(argv[1], "rb");
-//    FILE *f1 = fopen("/home/liudeyuan/Desktop/retention/data/data1/writers.0.0", "rb");
     if (!f1)
     {
         printf("Fail to open file <%s>\n", argv[1]);
@@ -20,7 +18,6 @@ int main(int argc, const char *argv[])
     }
 
     FILE *f2 = fopen(argv[2], "rb");
-//    FILE *f2 = fopen("/home/liudeyuan/Desktop/retention/data/data1/writers.0.1", "rb");
     if (!f2)
     {
         printf("Fail to open file <%s>\n", argv[2]);
@@ -29,7 +26,6 @@ int main(int argc, const char *argv[])
     }
 
     FILE *log = fopen(argv[3], "w");
-//    FILE *log = fopen("/home/liudeyuan/Desktop/log", "w");
     if (!log)
     {
         printf("Fail to open file <%s>\n", argv[3]);
@@ -57,7 +53,7 @@ int main(int argc, const char *argv[])
             {
                 if((buf1[i] & masks[j]) ^ (buf2[i] & masks[j]))
                 {
-                    string s = to_string(offset+j) + "\n";
+                    std::string s = std::to_string(offset+j) + "\n";
                     printf("%s", s.c_str());
                     fwrite(s.c_str(), s.size(), 1, log);
                 }

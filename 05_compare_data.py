@@ -37,7 +37,7 @@ def compare_data(src, dst, cpp):
         log_file = Path(dst) / Path('log_' + Path(file).name)
         os.system(f'touch {log_file}')
         if cpp:
-            cmd = f'cpp/diff_bit_log {file} {dst_file} {log_file}'
+            cmd = f'cpp/build/diff_bit_log {file} {dst_file} {log_file}'
             run_command(cmd)
         else:
             diff_bit_log(file, dst_file, log_file)
@@ -54,7 +54,7 @@ def compare_data_mp(src, dst, cpp):
         log_file = Path(dst) / Path('log_' + Path(file).name)
         os.system(f'touch {log_file}')
         if cpp:
-            cmd = f'cpp/diff_bit_log {file} {dst_file} {log_file}'
+            cmd = f'cpp/build/diff_bit_log {file} {dst_file} {log_file}'
             tm.new_task(run_command, cmd)
         else:
             tm.new_task(diff_bit_log, file, dst_file, log_file)
@@ -89,6 +89,7 @@ def clear_data(src, dst):
         cmd = f'sudo -S rm {dst_file} < password'
         run_command(cmd)
 
+
 def check_data(src):
     files = FT.getAllFiles(src)
     files = [file for file in files if file.count('writers')]
@@ -98,7 +99,7 @@ def check_data(src):
     os.system(f'touch {log_file}')
     pbar = tqdm(total=len(files))
     for file in files:
-        cmd = f'cpp/check_data {file} {log_file}'
+        cmd = f'cpp/build/check_data {file} {log_file}'
         run_command(cmd)
         pbar.update(1)
     pbar.close()

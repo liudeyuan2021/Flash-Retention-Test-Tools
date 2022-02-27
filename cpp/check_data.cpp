@@ -1,6 +1,5 @@
-#include <bits/stdc++.h>
-
-using namespace std;
+#include <cstdio>
+#include <string>
 
 int main(int argc, const char *argv[])
 {
@@ -50,7 +49,7 @@ int main(int argc, const char *argv[])
         }
     }
 
-    string s = to_string(cnt) + " " + to_string(offset) + " " + to_string(100 * cnt / offset) + "%\n";
+    std::string s = std::to_string(cnt) + " " + std::to_string(offset) + " " + std::to_string(100 * cnt / offset) + "%\n";
     fwrite(s.c_str(), s.size(), 1, log);
 
     fclose(f);
