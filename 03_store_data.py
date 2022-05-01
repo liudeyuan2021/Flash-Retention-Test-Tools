@@ -41,30 +41,36 @@ def intel_670p():
     device = '/dev/nvme1n1'
     store_data(src, device)
 
+
 def kingston_nv1():
     src = 'data/768G'
     device = '/dev/nvme2n1'
     store_data(src, device)
+
 
 def seagate_q5():
     src = 'data/384G'
     device = '/dev/nvme3n1'
     store_data(src, device)
 
+
 def samsung_870qvo():
     src = 'data/768G'
     device = '/dev/sdb'
     store_data(src, device)
+
 
 def sandisk_redgrey():
     src = 'data/96G'
     device = '/dev/sdc'
     store_data(src, device)
 
+
 def netac_u185():
     src = 'data/96G'
     device = '/dev/sdd'
     store_data(src, device)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
